@@ -45,8 +45,9 @@ const array = [
 
 class App extends Component {
   state = {
-    list: array,
+    list: [],
     textInput: '',
+    errorMessage: false,
   }
 
   changeInput = (evt) => {
@@ -58,15 +59,42 @@ class App extends Component {
 
   handleSubmitSearch = () => {
     const { textInput } = this.state;
-    // console.log('envoi de la requête: ', textInput);
-    // C'est l'heure de faire la requete avec axios
+    // console.log(textInput);
+    // Je peux vérifier que la valeur de l'input n'est pas vide
+    if (textInput.trim() === '') {
+      this.setState({
+        errorMessage: 'Merci de saisir un nom à rechercher',
+      });
+      return false;
+    }
+
+    // C'est l(heure de faire la requête avec axios
     axios.get(`https://api.github.com/search/repositories?q=${textInput}`)
-      .then(console.log)
-      .catch(console.log);
+      .then((results) => {
+        const formattedResults = results.data.items.map(repo => (
+          {
+            id: repo.id,
+            image: repo.owner.avatar_url,
+            meta: repo.owner.login,
+            header: repo.name,
+            description: repo.description,
+          }
+        ));
+        this.setState({
+          list: formattedResults,
+          errorMessage: false,
+        });
+      })
+      .catch((error) => {
+        // console.log(error.message);
+        this.setState({
+          errorMessage: error.message,
+        });
+      });
   }
 
   render() {
-    const { list, textInput } = this.state;
+    const { list, textInput, errorMessage } = this.state;
     return (
       <div id="app">
         <SearchBar
@@ -74,10 +102,13 @@ class App extends Component {
           onChangeInput={this.changeInput}
           handleSubmitSearch={this.handleSubmitSearch}
         />
-        <Messages
-          title="Oups, something went wrong"
-          message="We were unable to load your repos"
-        />
+        { errorMessage && (
+          <Messages
+            title="Oups, something went wrong"
+            message={errorMessage}
+          />
+        )}
+        
         <ReposResults list={list} />
       </div>
     );
