@@ -8,9 +8,10 @@ const ReposResults = ({list}) => {
       <Card.Group>
         {
           list.map(({
-            image, header, meta, description,
+            image, header, meta, description, id,
           }) => (
             <Card
+              key={id}
               image={image}
               header={header}
               meta={meta}
@@ -27,6 +28,7 @@ const ReposResults = ({list}) => {
 ReposResults.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
       header: PropTypes.string.isRequired,
       meta: PropTypes.string.isRequired,
