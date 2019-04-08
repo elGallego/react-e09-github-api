@@ -2,82 +2,38 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-const ReposResults = () => {
+const ReposResults = ({list}) => {
   return (
     <div id="repos-results">
       <Card.Group>
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
-        <Card
-          image="https://wp.oclock.io/wp-content/uploads/2017/07/fabparty4-800x550.jpg"
-          header="Elliot Baker"
-          meta="Friend"
-          description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        />
+        {
+          list.map(({
+            image, header, meta, description,
+          }) => (
+            <Card
+              image={image}
+              header={header}
+              meta={meta}
+              description={description}
+            />
+          ))
+        }
         
       </Card.Group>
     </div>
   );
 };
 
+ReposResults.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      image: PropTypes.string.isRequired,
+      header: PropTypes.string.isRequired,
+      meta: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+};
 
 export default ReposResults;
 
