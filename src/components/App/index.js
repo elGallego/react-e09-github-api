@@ -6,6 +6,10 @@ import React from 'react';
 /**
  * Local import
  */
+import SearchBar from '../SearchBar';
+import ReposResults from '../ReposResults';
+import Messages from '../Messages';
+
 import './app.scss';
 
 /**
@@ -13,7 +17,9 @@ import './app.scss';
  */
 const App = () => (
   <div id="app">
-    <p>Hello, je suis le composant App</p>
+    <SearchBar />
+    <Messages />
+    <ReposResults />
   </div>
 );
 
